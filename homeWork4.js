@@ -48,7 +48,7 @@ class Calculator {
   }
 
   get y() {
-    return this.#y
+    return this.#y;
   }
 
   set y(number) {
@@ -106,15 +106,15 @@ class Calculator {
 
   logSum = () => {
     console.log(this.calculateSum());
-  }
+  };
 
   logMul = () => {
     console.log(this.calculateMul());
-  }
+  };
 
   logSub = () => {
     console.log(this.calculateSub());
-  }
+  };
 
   logDiv = () => {
     try {
@@ -122,7 +122,7 @@ class Calculator {
     } catch (error) {
       console.error(error.message);
     }
-  }
+  };
 }
 
 // const invalidCalculator = new Calculator(12, 3n); // Invalid number!
