@@ -32,6 +32,7 @@ class Stack {
     }
 
     const newNode = new Node(element);
+
     newNode.next = this.#lastElement;
     this.#lastElement = newNode;
   }
@@ -42,6 +43,7 @@ class Stack {
     }
 
     const lastElementData = this.#lastElement.data;
+
     this.#lastElement = this.#lastElement.next;
 
     return lastElementData;
