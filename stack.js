@@ -1,7 +1,13 @@
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
+}
+
 class Stack {
   #maxSize;
-  #stack;
-  #lastElementIndex;
+  #lastElement;
 
   constructor(maxSize = 10) {
     if (!this.isValidNumber(maxSize)) {
@@ -9,8 +15,7 @@ class Stack {
     }
 
     this.#maxSize = maxSize;
-    this.#stack = [];
-    this.#lastElementIndex = -1;
+    this.#lastElement = null;
   }
 
   isValidNumber(num) {
@@ -18,16 +23,17 @@ class Stack {
   }
 
   isEmpty() {
-    return this.#lastElementIndex === -1;
+    return this.#lastElement === null;
   }
 
   push(element) {
-    if (this.#lastElementIndex === this.#maxSize - 1) {
+    if (this.getSize() === this.#maxSize) {
       throw new Error('Full stack!!');
     }
 
-    this.#lastElementIndex++;
-    this.#stack[this.#lastElementIndex] = element;
+    const newNode = new Node(element);
+    newNode.next = this.#lastElement;
+    this.#lastElement = newNode;
   }
 
   pop() {
@@ -35,21 +41,30 @@ class Stack {
       throw new Error('Empty stack!');
     }
 
-    const lastElement = this.#stack[this.#lastElementIndex];
+    const lastElementData = this.#lastElement.data;
+    this.#lastElement = this.#lastElement.next;
 
-    delete this.#stack[this.#lastElementIndex];
-
-    this.#lastElementIndex--;
-
-    return lastElement;
+    return lastElementData;
   }
 
   peek() {
-    return this.isEmpty() ? null : this.#stack[this.#lastElementIndex];
+    return this.isEmpty() ? null : this.#lastElement.data;
   }
 
   toArray() {
-    return [...this.#stack];
+    return this.toArrayHelper(this.#lastElement);
+  }
+
+  toArrayHelper(node) {
+    if (node === null) {
+      return [];
+    }
+
+    return [node.data, ...this.toArrayHelper(node.next)];
+  }
+
+  getSize() {
+    return this.toArray().length;
   }
 
   static fromIterable(iterable) {
@@ -74,11 +89,11 @@ stack.push(1);
 stack.push(2);
 stack.push(3);
 
-console.log(stack.toArray()); // [1, 2, 3]
+console.log(stack.toArray()); // [3, 2, 1]
 console.log(stack.pop()); // 3
 console.log(stack.peek()); // 2
 console.log(stack.isEmpty()); // false
 
 const newStack = Stack.fromIterable([4, 5, 6]);
 
-console.log(newStack.toArray()); // [4, 5, 6]
+console.log(newStack.toArray()); // [6, 5, 4]
