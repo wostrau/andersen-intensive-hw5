@@ -89,11 +89,11 @@ stack.push(1);
 stack.push(2);
 stack.push(3);
 
-console.log(stack.toArray()); // [1, 2, 3]
+console.log(stack.toArray()); // [3, 2, 1]
 console.log(stack.pop()); // 3
 console.log(stack.peek()); // 2
 console.log(stack.isEmpty()); // false
 
 const newStack = Stack.fromIterable([4, 5, 6]);
 
-console.log(newStack.toArray()); // [4, 5, 6]
+console.log(newStack.toArray()); // [6, 5, 4]
